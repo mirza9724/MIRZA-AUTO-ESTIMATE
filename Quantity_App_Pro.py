@@ -93,7 +93,6 @@ import numpy as np
 
 if img is not None:
     img_for_canvas = Image.fromarray(img.astype('uint8')) if isinstance(img, np.ndarray) else img
-    
     canvas_result = st_canvas(
         fill_color="rgba(255, 165, 0, 0.3)",
         stroke_width=2,
@@ -105,28 +104,6 @@ if img is not None:
         update_streamlit=True,
         key=f"mirza_v49_{st.session_state.canvas_key}",
     )
-        key=f"mirza_v49_{st.session_state.canvas_key}",
-    )
-# --- સુધારેલ કોડ પૂરો ---
-
-    if canvas_result.json_data and canvas_result.json_data["objects"]:
-        objects = canvas_result.json_data["objects"]
-        calc_scale = scale / (2 * (1000 / img.width))
-        temp_rows = []
-
-        for i, obj in enumerate(objects):
-            l = ((obj["left"] - obj["x1"])**2 + (obj["top"] - obj["y1"])**2)**0.5 * calc_scale if obj["type"] == "line" else abs(obj["width"]) * calc_scale
-            b = c_breath if obj["type"] == "line" else abs(obj["height"]) * calc_scale
-            d = c_depth
-            final_l = manual_l if (i == len(objects)-1 and manual_l > 0) else l
-            qty = round((final_l if final_l>0 else 1) * (b if b>0 else 1) * (d if d>0 else 1), 3)
-
-            temp_rows.append({
-                'Item No': "", 'Description': custom_name, 'Nos': 1.0, 
-                'Length': round(final_l, 3), 'Breath': round(b, 3), 'Depth': round(d, 3),
-                'Quantity': qty, 'Unit': "", 'Rate': "", 'Total Quantity': None, 'Amount': None
-            })
-
         st.subheader("📋 Pending Measurements")
         edited_df = st.data_editor(pd.DataFrame(temp_rows), num_rows="dynamic", key="v49_editor", hide_index=True)
         
