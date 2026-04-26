@@ -109,10 +109,6 @@ item_rate = float(f_rate) if f_rate else 0.0
 
 # રિપોર્ટ અપડેટ લોજિક
 st.session_state.final_report = st.session_state.final_report[~(st.session_state.final_report['Description'] == f"Total of Item {u_item_no}")]
-            # 3. Add Summary Row (Total Qty, Rate, and Amount)
-            f_df = st.session_state.final_report
-            h_idx = f_df.index[f_df['Item No'].astype(str) == str(u_item_no)].tolist()[0]
-            curr_sum = 0.0
             p = h_idx + 1
             while p < len(f_df) and f_df.iloc[p]['Item No'] == "":
                 val = f_df.iloc[p]['Quantity']
