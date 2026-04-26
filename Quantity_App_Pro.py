@@ -107,12 +107,10 @@ if img is not None:
 
 item_rate = float(f_rate) if f_rate else 0.0
 
-# રિપોર્ટ અપડેટ લોજિક
+# રિપોર્ટ અપડેટ લોજિક - આ બધી લાઈનો ડાબી બાજુ હોવી જોઈએ
 st.session_state.final_report = st.session_state.final_report[~(st.session_state.final_report['Description'] == f"Total of Item {u_item_no}")]
-            p = h_idx + 1
-            while p < len(f_df) and f_df.iloc[p]['Item No'] == "":
-                val = f_df.iloc[p]['Quantity']
-                if pd.notnull(val): curr_sum += float(val)
+h_idx = st.session_state.final_report.index[st.session_state.final_report['Item No'] == u_item_no].tolist()
+p = h_idx[0] + 1 if h_idx else len(st.session_state.final_report)
                 p += 1
             
             # Summary Row: Rate and Amount are placed here together
