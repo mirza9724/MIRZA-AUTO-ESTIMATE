@@ -104,7 +104,7 @@ if pdf_file:
             update_streamlit=True,
             key=f"mirza_v49_{st.session_state.canvas_key}",
         )
-            item_rate = float(f_rate) if f_rate else 0.0
+    item_rate = float(f_rate) if f_rate else 0.0
             
             # 1. Remove previous total for this item to recalculate
             st.session_state.final_report = st.session_state.final_report[~(st.session_state.final_report['Description'] == f"Total of Item {u_item_no}")]
