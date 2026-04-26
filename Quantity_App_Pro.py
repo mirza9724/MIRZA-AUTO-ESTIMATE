@@ -109,10 +109,11 @@ item_rate = float(f_rate) if f_rate else 0.0
 
 # રિપોર્ટ અપડેટ કરવાનું લોજિક
 st.session_state.final_report = st.session_state.final_report[~(st.session_state.final_report['Description'] == f"Total of Item {u_item_no}")]
-                header = pd.DataFrame([{
-                    'Item No': u_item_no, 'Description': full_desc, 'Nos': None, 'Length': None, 'Breath': None, 'Depth': None, 'Quantity': None, 'Unit': f_unit, 'Rate': "", 'Total Quantity': None, 'Amount': None
-                }])
-                st.session_state.final_report = pd.concat([st.session_state.final_report, header, edited_df], ignore_index=True)
+header = pd.DataFrame([{
+    'Item No': u_item_no,
+    'Description': f"Total of Item {u_item_no}",
+    'Length': 0, 'Breadth': 0, 'Depth': 0, 'Quantity': 0, 'Rate': item_rate, 'Amount': 0
+}])
             else:
                 # Existing Item: Insert after last entry in group
                 last_pos = existing_indices[-1] + 1
