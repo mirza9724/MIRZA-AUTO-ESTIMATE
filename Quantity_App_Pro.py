@@ -88,13 +88,11 @@ if pdf_file:
         except: pass
 
     # Drawable Canvas
-   # --- સુધારેલ કોડ શરૂ ---
 from PIL import Image
 import numpy as np
 
 if img is not None:
-    # ઈમેજને ક્લાઉડ પર બતાવવા માટે PIL ફોર્મેટમાં ફેરવવી જરૂરી છે
-    img_for_canvas = Image.fromarray(img) if isinstance(img, np.ndarray) else img
+    img_for_canvas = Image.fromarray(img.astype('uint8')) if isinstance(img, np.ndarray) else img
     
     canvas_result = st_canvas(
         fill_color="rgba(255, 165, 0, 0.3)",
@@ -105,6 +103,8 @@ if img is not None:
         width=1000,
         drawing_mode=draw_mode,
         update_streamlit=True,
+        key=f"mirza_v49_{st.session_state.canvas_key}",
+    )
         key=f"mirza_v49_{st.session_state.canvas_key}",
     )
 # --- સુધારેલ કોડ પૂરો ---
