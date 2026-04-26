@@ -88,7 +88,7 @@ if pdf_file:
         except: pass
 
     # Drawable Canvas
-    from PIL import Image
+   from PIL import Image
 import numpy as np
 
 if img is not None:
@@ -109,15 +109,12 @@ item_rate = float(f_rate) if f_rate else 0.0
 
 # રિપોર્ટ અપડેટ કરવાનું લોજિક
 st.session_state.final_report = st.session_state.final_report[~(st.session_state.final_report['Description'] == f"Total of Item {u_item_no}")]
+
 header = pd.DataFrame([{
     'Item No': u_item_no,
     'Description': f"Total of Item {u_item_no}",
     'Length': 0, 'Breadth': 0, 'Depth': 0, 'Quantity': 0, 'Rate': item_rate, 'Amount': 0
 }])
-            else:
-                # Existing Item: Insert after last entry in group
-                last_pos = existing_indices[-1] + 1
-                while last_pos < len(st.session_state.final_report) and st.session_state.final_report.iloc[last_pos]['Item No'] == "":
                     last_pos += 1
                 st.session_state.final_report = pd.concat([st.session_state.final_report.iloc[:last_pos], edited_df, st.session_state.final_report.iloc[last_pos:]], ignore_index=True)
             
