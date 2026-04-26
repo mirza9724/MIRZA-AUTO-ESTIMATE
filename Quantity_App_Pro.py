@@ -88,7 +88,7 @@ if pdf_file:
         except: pass
 
     # Drawable Canvas
-from PIL import Image
+    from PIL import Image
     import numpy as np
 
     if img is not None:
