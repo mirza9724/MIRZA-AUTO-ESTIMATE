@@ -89,25 +89,21 @@ if pdf_file:
 
     # Drawable Canvas
 from PIL import Image
-import numpy as np
+    import numpy as np
 
-if img is not None:
-    img_for_canvas = Image.fromarray(img.astype('uint8')) if isinstance(img, np.ndarray) else img
-    canvas_result = st_canvas(
-        fill_color="rgba(255, 165, 0, 0.3)",
-        stroke_width=2,
-        stroke_color="#FF0000",
-        background_image=img_for_canvas,
-        height=display_height,
-        width=1000,
-        drawing_mode=draw_mode,
-        update_streamlit=True,
-        key=f"mirza_v49_{st.session_state.canvas_key}",
-    )
-        st.subheader("📋 Pending Measurements")
-        edited_df = st.data_editor(pd.DataFrame(temp_rows), num_rows="dynamic", key="v49_editor", hide_index=True)
-        
-        if st.button("🚀 Save Item Group to Final Report"):
+    if img is not None:
+        img_for_canvas = Image.fromarray(img.astype('uint8')) if isinstance(img, np.ndarray) else img
+        canvas_result = st_canvas(
+            fill_color="rgba(255, 165, 0, 0.3)",
+            stroke_width=2,
+            stroke_color="#FF0000",
+            background_image=img_for_canvas,
+            height=display_height,
+            width=1000,
+            drawing_mode=draw_mode,
+            update_streamlit=True,
+            key=f"mirza_v49_{st.session_state.canvas_key}",
+        )
             item_rate = float(f_rate) if f_rate else 0.0
             
             # 1. Remove previous total for this item to recalculate
