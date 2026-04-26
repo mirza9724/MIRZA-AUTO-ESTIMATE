@@ -88,6 +88,9 @@ if pdf_file:
                 f_unit = match.iloc[0].get('unit', "")
                 f_rate = match.iloc[0].get('rate', 0.0)
         except: pass
+from PIL import Image
+import numpy as np
+
 if img is not None:
     img_for_canvas = Image.fromarray(img.astype('uint8')) if isinstance(img, np.ndarray) else img
     canvas_result = st_canvas(
@@ -104,15 +107,8 @@ if img is not None:
 
 item_rate = float(f_rate) if f_rate else 0.0
 
+# રિપોર્ટ અપડેટ લોજિક
 st.session_state.final_report = st.session_state.final_report[~(st.session_state.final_report['Description'] == f"Total of Item {u_item_no}")]
-
-header = pd.DataFrame([{
-    'Item No': u_item_no,
-    'Description': f"Total of Item {u_item_no}",
-    'Length': 0, 'Breadth': 0, 'Depth': 0, 'Quantity': 0, 'Rate': item_rate, 'Amount': 0
-}])
-                st.session_state.final_report = pd.concat([st.session_state.final_report.iloc[:last_pos], edited_df, st.session_state.final_report.iloc[last_pos:]], ignore_index=True)
-            
             # 3. Add Summary Row (Total Qty, Rate, and Amount)
             f_df = st.session_state.final_report
             h_idx = f_df.index[f_df['Item No'].astype(str) == str(u_item_no)].tolist()[0]
