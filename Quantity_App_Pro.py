@@ -1,3 +1,5 @@
+from PIL import Image
+import numpy as np
 import streamlit as st
 import pandas as pd
 from streamlit_drawable_canvas import st_canvas
@@ -86,11 +88,6 @@ if pdf_file:
                 f_unit = match.iloc[0].get('unit', "")
                 f_rate = match.iloc[0].get('rate', 0.0)
         except: pass
-
-    # Drawable Canvas
-   from PIL import Image
-import numpy as np
-
 if img is not None:
     img_for_canvas = Image.fromarray(img.astype('uint8')) if isinstance(img, np.ndarray) else img
     canvas_result = st_canvas(
@@ -107,7 +104,6 @@ if img is not None:
 
 item_rate = float(f_rate) if f_rate else 0.0
 
-# રિપોર્ટ અપડેટ કરવાનું લોજિક
 st.session_state.final_report = st.session_state.final_report[~(st.session_state.final_report['Description'] == f"Total of Item {u_item_no}")]
 
 header = pd.DataFrame([{
@@ -115,7 +111,6 @@ header = pd.DataFrame([{
     'Description': f"Total of Item {u_item_no}",
     'Length': 0, 'Breadth': 0, 'Depth': 0, 'Quantity': 0, 'Rate': item_rate, 'Amount': 0
 }])
-                    last_pos += 1
                 st.session_state.final_report = pd.concat([st.session_state.final_report.iloc[:last_pos], edited_df, st.session_state.final_report.iloc[last_pos:]], ignore_index=True)
             
             # 3. Add Summary Row (Total Qty, Rate, and Amount)
