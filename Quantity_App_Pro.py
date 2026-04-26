@@ -89,30 +89,26 @@ if pdf_file:
 
     # Drawable Canvas
     from PIL import Image
-    import numpy as np
+import numpy as np
 
-    if img is not None:
-        img_for_canvas = Image.fromarray(img.astype('uint8')) if isinstance(img, np.ndarray) else img
-        canvas_result = st_canvas(
-            fill_color="rgba(255, 165, 0, 0.3)",
-            stroke_width=2,
-            stroke_color="#FF0000",
-            background_image=img_for_canvas,
-            height=display_height,
-            width=1000,
-            drawing_mode=draw_mode,
-            update_streamlit=True,
-            key=f"mirza_v49_{st.session_state.canvas_key}",
-        )
-    item_rate = float(f_rate) if f_rate else 0.0
-            
-            # 1. Remove previous total for this item to recalculate
-            st.session_state.final_report = st.session_state.final_report[~(st.session_state.final_report['Description'] == f"Total of Item {u_item_no}")]
-            
-            # 2. Find group position and insert
-            existing_indices = st.session_state.final_report.index[st.session_state.final_report['Item No'].astype(str) == str(u_item_no)].tolist()
-            if not existing_indices:
-                # New Item: Add Header (Rate is empty in header now)
+if img is not None:
+    img_for_canvas = Image.fromarray(img.astype('uint8')) if isinstance(img, np.ndarray) else img
+    canvas_result = st_canvas(
+        fill_color="rgba(255, 165, 0, 0.3)",
+        stroke_width=2,
+        stroke_color="#FF0000",
+        background_image=img_for_canvas,
+        height=display_height,
+        width=1000,
+        drawing_mode=draw_mode,
+        update_streamlit=True,
+        key=f"mirza_v49_{st.session_state.canvas_key}",
+    )
+
+item_rate = float(f_rate) if f_rate else 0.0
+
+# રિપોર્ટ અપડેટ કરવાનું લોજિક
+st.session_state.final_report = st.session_state.final_report[~(st.session_state.final_report['Description'] == f"Total of Item {u_item_no}")]
                 header = pd.DataFrame([{
                     'Item No': u_item_no, 'Description': full_desc, 'Nos': None, 'Length': None, 'Breath': None, 'Depth': None, 'Quantity': None, 'Unit': f_unit, 'Rate': "", 'Total Quantity': None, 'Amount': None
                 }])
