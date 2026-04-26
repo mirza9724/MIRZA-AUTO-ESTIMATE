@@ -2,6 +2,7 @@ streamlit
 pandas
 streamlit-drawable-canvas
 Pillow
+numpy
 pymupdf
 openpyxl
 xlrd
